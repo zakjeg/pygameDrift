@@ -2,6 +2,38 @@ import pygame
 import math
 import os
 
+#kratek opis igre
+
+# ZAČETNI ZASLON
+# Ob zagonu igre se prikaže intro zaslon, kjer igralec lahko pritisne gumb Start Game ali katerokoli tipko za začetek igre. Med tem se predvaja uvodna glasba.
+
+# FIZIKA VOZILA IN PREMIKANJE
+# Avto pospešuje s tipko W in zavira s S.
+# Zasuk krmila se izvaja s A in D, pri čemer se avto lažje obrača pri večjih hitrostih.
+# Trenje in driftanje sta simulirana tako, da avto ne spremeni takoj smeri gibanja, temveč obdrži nekaj bočnega drsenja.
+# Če se hitrost zmanjša, se zavijanje upočasni, kar doda realizem vožnji.
+
+# ZAZNAVANJE CESTE IN TOČKOVANJE
+# Igra preverja, ali je avto na cesti, tako da vzame barvo pod njim in jo primerja z barvo ceste.
+# Če je vozilo na cesti, se točke pridobivajo glede na hitrost in kot driftanja. Večji kot driftanja pomeni več točk.
+# Če avto zapusti cesto, se točke ne prištevajo.
+
+# ČASOVNA OMEJITEV IN CILJNA ČRTA
+# Igra se začne, ko avto prvič prečka ciljno črto.
+# Odštevanje traja 60 sekund – igralec mora v tem času nabrati čim več točk.
+# Ko čas poteče, se prikaže zaslon z rezultatom in možnostjo ponovnega igranja.
+
+# ZVOČNI UČINKI
+# Motorni zvoki se spreminjajo glede na pospeševanje.
+# Zvok driftanja se predvaja, če avto drsi pod določenim kotom.
+# Glasba igra v ozadju in se prekine, ko je igra končana.
+
+# OPCIJA ZA PONOVNO IGRRANJE
+# Po koncu igre lahko igralec pritisne R, da jo začne znova.
+# Če pritisne T, se prikaže skriti zaključni zaslon.
+# Če igralec ne naredi ničesar, se igra po 30 sekundah avtomatsko zapre.
+
+
 pygame.init()
 
 # konstante
@@ -182,6 +214,7 @@ class Car:
     def update(self, keys):
 
         global tyre_playing
+
         # Pospeševanje in zaviranje
         if keys[pygame.K_w]:
             self.acceleration = 0.08
@@ -302,6 +335,7 @@ class Car:
 
 
 
+pygame.mixer.music.set_volume(0.3)
 
 pygame.mixer.music.play(-1, 0.0)
 
@@ -313,17 +347,11 @@ finishLineStart_y=600
 finishLineEnd_y=680
 
 car = Car(511, 609)
-
 startup_sound.play()
-
 startup_finished = False
-
 power_playing = False
-
 current_score = 0
-
 running = True
-
 last_time_called = pygame.time.get_ticks()
 
 while running:
