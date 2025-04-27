@@ -85,7 +85,7 @@ def welcome_screen():
     # prikaz gumba za začetek
     button_text = button_font.render('Start Game', True, WHITE)
     button_rect = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2, 200, 50)
-    pygame.draw.rect(display, (0, 0, 255), button_rect)  # Blue button
+    pygame.draw.rect(display, (0, 0, 255), button_rect)  
     display.blit(button_text, (button_rect.x + 40, button_rect.y + 10))
 
     # prikaz zaslona
